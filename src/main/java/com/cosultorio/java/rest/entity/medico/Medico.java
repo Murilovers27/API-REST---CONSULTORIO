@@ -1,6 +1,8 @@
 package com.cosultorio.java.rest.entity.medico;
 
 import com.cosultorio.java.rest.entity.medico.endereco.Endereco;
+import com.cosultorio.java.rest.record.MedicoRecord;
+
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -28,12 +30,23 @@ public class Medico {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
-    private String CRM;
+    private String email;
+    private String crm;
+    private Integer idade;
 
     @Enumerated(EnumType.STRING)
     private Especialidade especialidade;
 
     @Embedded
     private Endereco endereco;
+
+    public Medico (MedicoRecord dados){
+        this.nome = dados.nome();
+        this.email = dados.email();
+        this.endereco = new Endereco(dados.endereco());
+        this.idade = dados.idade();
+        this.crm = dados.crm();
+
+    }
 
 }
